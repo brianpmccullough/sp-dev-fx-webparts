@@ -11,7 +11,8 @@ export default class ReactCustomLocalization extends React.Component<IReactCusto
       environmentMessage,
       hasTeamsContext,
       userDisplayName,
-      strings
+      strings,
+      cultureInfo
     } = this.props;
 
     return (
@@ -20,8 +21,11 @@ export default class ReactCustomLocalization extends React.Component<IReactCusto
           <img alt="" src={isDarkTheme ? require('../assets/welcome-dark.png') : require('../assets/welcome-light.png')} className={styles.welcomeImage} />
           <h2>{strings.Hello}, {escape(userDisplayName)}!</h2>
           <div>{environmentMessage}</div>
-          <div>Web part property value (this text is not localized and always english): <strong>{escape(description)}</strong></div>
           <div>{strings.SomeString}</div>
+          <div>&nbsp;</div>
+          <div>Web part property value (this text is not localized and always english): <strong>{escape(description)}</strong></div>
+          <div>&nbsp;</div>
+          <div>CultureInfo: {JSON.stringify(cultureInfo)}</div>
         </div>
       </section>
     );

@@ -37,7 +37,8 @@ export default class ReactCustomLocalizationWebPart extends BaseClientSideWebPar
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
         userDisplayName: this.context.pageContext.user.displayName,
-        strings: this._localizedStrings
+        strings: this._localizedStrings,
+        cultureInfo: this.context.pageContext.cultureInfo
       }
     );
 
@@ -125,6 +126,7 @@ export default class ReactCustomLocalizationWebPart extends BaseClientSideWebPar
   }
 
   private async loadLocalizedStrings(): Promise<IReactCustomLocalizationWebPartStrings> {
+
     if (this.properties.localeMode === 'default') {
       return { ...strings }
     }
@@ -151,8 +153,9 @@ export default class ReactCustomLocalizationWebPart extends BaseClientSideWebPar
     return localizedStrings;
   }
 
-  protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
+  protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: unknown, newValue: unknown): void {
     if (propertyPath === 'localeMode' || propertyPath === 'locale') {
+
       this.loadLocalizedStrings().then(localizedStrings => {
         this._localizedStrings = localizedStrings;
         this._getEnvironmentMessage().then(message => {
@@ -164,6 +167,7 @@ export default class ReactCustomLocalizationWebPart extends BaseClientSideWebPar
       }).catch(() => {
         //TODO: fill in as appropriate
       });
+      
     }
   }
 
